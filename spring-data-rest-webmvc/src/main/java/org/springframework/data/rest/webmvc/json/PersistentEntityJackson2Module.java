@@ -245,7 +245,7 @@ public class PersistentEntityJackson2Module extends SimpleModule {
 
 				// Skip ids unless explicitly configured to expose
 				if (persistentProperty.isIdProperty() && !configuration.isIdExposedFor(entity.getType())) {
-					continue;
+					//continue;
 				}
 
 				result.add(writer);
