@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  * @author Oliver Gierke
@@ -33,7 +34,11 @@ public interface RepositoryInvoker extends RepositoryInvocationInformation {
 
 	Iterable<Object> invokeFindAll(Pageable pageable);
 
+    Iterable<Object> invokeFindAll(Specification<Object> spec, Pageable pageable);
+
 	Iterable<Object> invokeFindAll(Sort sort);
+
+    Iterable<Object> invokeFindAll(Specification<Object> spec, Sort sort);
 
 	void invokeDelete(Serializable serializable);
 

@@ -15,10 +15,20 @@
  */
 package org.springframework.data.rest.webmvc;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static org.springframework.data.rest.webmvc.TestMvcClient.*;
-import static org.springframework.http.HttpMethod.*;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
+import static org.springframework.data.rest.webmvc.TestMvcClient.assertAllowHeaders;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.HEAD;
+import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.http.HttpMethod.PATCH;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
 
 import java.util.List;
 
@@ -36,6 +46,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -63,8 +74,10 @@ public class RepositoryEntityControllerIntegrationTests extends AbstractControll
 
 		repository.save(new Address());
 
-		RootResourceInformation request = getResourceInformation(Address.class);
-		controller.getCollectionResource(request, null, null, null);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        RootResourceInformation rootResourceInformation = getResourceInformation(Address.class);
+        controller.getCollectionResource(request, rootResourceInformation, null, null, null);
 	}
 
 	/**

@@ -28,6 +28,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.core.CrudMethods;
 import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.query.Param;
@@ -293,4 +294,21 @@ class ReflectionRepositoryInvoker implements RepositoryInvoker {
 		Assert.notNull(id, "Id must not be null!");
 		return conversionService.convert(id, information.getIdType());
 	}
+
+    /* (non-Javadoc)
+     * @see org.springframework.data.rest.core.invoke.RepositoryInvoker#invokeFindAll(org.springframework.data.jpa.domain.Specification, org.springframework.data.domain.Pageable)
+     */
+    @Override
+    public Iterable<Object> invokeFindAll(Specification<Object> spec, Pageable pageable) {
+        return invokeFindAll(pageable);
+    }
+
+    /* (non-Javadoc)
+     * @see org.springframework.data.rest.core.invoke.RepositoryInvoker#invokeFindAll(org.springframework.data.jpa.domain.Specification, org.springframework.data.domain.Sort)
+     */
+    @Override
+    public Iterable<Object> invokeFindAll(Specification<Object> spec, Sort sort) {
+        return invokeFindAll(sort);
+    }
+
 }
